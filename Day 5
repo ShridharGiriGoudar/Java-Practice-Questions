@@ -1,0 +1,126 @@
+Question 1:
+
+Exception hanlding in java
+Write a Java program that takes two integers as input and performs division. The program should handle exceptions for invalid input (non-integer input) and division by zero. The program should continue to prompt the user for valid input until successful division is performed.
+
+
+
+Requirements:
+
+Handle InputMismatchException if the user inputs non-integer values.
+Handle ArithmeticException if the user attempts to divide by zero.
+Use a loop to ensure the program continues to prompt the user until valid input is received and the division is successfully performed.
+Sample Input and Output:
+Sample Run 1:
+Enter the first number: 10
+Enter the second number: 2
+Result: 5
+
+Sample Run 2:
+Enter the first number: 10
+Enter the second number: 0
+Cannot divide by zero. Please enter a valid divisor.
+Enter the second number: 2
+Result: 5
+
+Sample Run 3:
+Enter the first number: ten
+Invalid input. Please enter an integer.
+Enter the first number: 10
+Enter the second number: 2
+Result: 5
+
+Your answer
+
+import java.util.InputMismatchException;
+import java.util.Scanner;
+
+class Test {
+    public static void main(String args[] ) throws Exception {
+        
+        // Write your code here
+        Scanner sc = new Scanner(System.in);
+        int num1 = 0;
+        int num2 = 0;
+       
+        while(true){
+            System.out.print("Enter the first number: ");
+            try{
+                num1 = sc.nextInt();
+                break;
+            } catch(InputMismatchException e){
+                System.out.println("Invalid input.Please enter an integer.");
+                sc.next();
+            }
+        }
+       
+        while(true){
+            System.out.println("Enter the second number: ");
+            try{
+                num2 = sc.nextInt();
+                if (num2 == 0){
+                    System.out.println("Cannot divide by zero. Please enter a valid divisor.");
+                }else{
+                    break;
+                }
+            } catch(InputMismatchException e){
+                System.out.println("Invalid input. Please enter an integer.");
+                sc.next();
+            }
+        }
+
+        System.out.println("Result:" + (num1 / num2));
+    }
+}
+--------------------------------------------------------------------------------------------------------------------------------------------------
+
+Question 2:
+
+Multiple Catch Blocks
+You are required to catch Arithmetic or number format exceptions if present using multiple catch blocks in the code for finding of 99 with the number entered by user, else print "n is a factor of 99" or "n is not a factor of 99".
+
+Sample Input
+
+5
+
+Output Format
+
+5 is a not a factor of 99
+
+
+Input
+
+hi
+
+Output
+
+Number Format Exception java.lang.NumberFormatException: For input string: "hi"
+
+Your answer
+
+import java.util.Scanner;
+public class Test {
+
+    public static void main(String[] args) {
+ Scanner scn = new Scanner(System.in);
+        //write your answer here
+        try{
+            int n = sc.nextInt();
+            if(n == 0){
+                throw new ArithmeticException("/by zero");
+            }
+            if(99 % n == 0){
+                System.out.println(n + "is a factor of 99");
+            } else{
+                System.out.println(n + "is not a factor of 99");
+            }
+        } catch (InputMismatchException e){
+            System.out.println("Number Format Exception java.lang.NumberFormatException: For input string \"" + scn.nextLine() + "\"");
+        } catch(ArithmeticException e){
+            System.out.println("Arithmetic Exception java.lang.ArithmeticException: " + e.getMessage());
+        } finally{
+            scn.close();
+        }
+    }
+}
+------------------------------------------------------------------------------------------------------------------------------------------------------
