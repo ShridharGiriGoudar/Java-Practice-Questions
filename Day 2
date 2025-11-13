@@ -1,0 +1,430 @@
+Question 1
+Marks: 0/1
+
+sum of the elements present inside the array
+1. Write a program to find the sum of the elements present inside the array.
+
+Sample Input:
+
+5
+
+1 2 3 4 5
+
+Output: the sum of the elements in the array = 15
+
+Sample Input2:
+
+3
+
+19 45 34
+
+Output: the sum of the elements in the array = 98
+
+Your answer
+
+import java.util.*;
+
+public class SumOfArrayElements {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Read the size of the array
+        int n = sc.nextInt();
+        sc.nextLine(); // consume the newline
+        
+        String input = sc.nextLine().trim();
+        int sum = 0;
+
+        // Case 1: If input has spaces (like "19 45 34")
+        if (input.contains(" ")) {
+            String[] parts = input.split(" ");
+            for (String part : parts) {
+                sum += Integer.parseInt(part);
+            }
+        } 
+        // Case 2: If input is a single number (like "12345")
+        else {
+            for (char ch : input.toCharArray()) {
+                sum += Character.getNumericValue(ch);
+            }
+        }
+
+        System.out.println("the sum of the elements in the array = " + sum);
+        sc.close();
+    }
+}
+
+------------------------------------------------------------------------------------------------------------------------------
+
+Question 2
+Marks: 0/1
+
+Multidimensional Arrays in Java
+Instructions:
+
+Write a program that takes the row & columns input from the user to populate a 2D array and then prints the array.
+
+Sample Input & Output:
+
+Sample Input:
+2
+3
+1 2 3
+4 5 6
+
+Sample Output:
+1 2 3
+4 5 6
+Hints:
+1. Use the Scanner class to read input from the user.
+2. Create a nested for loop to iterate over the rows and columns of the array.
+3. Use the nextInt() method of the Scanner class to read integer values from the user.
+4. Store the input values in the array using the appropriate indices.
+5. Print the array using a nested for loop.
+
+Your answer
+
+import java.util.*;
+
+public class TwoDArrayExample {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read number of rows and columns
+        int rows = sc.nextInt();
+        int cols = sc.nextInt();
+
+        // Create a 2D array
+        int[][] arr = new int[rows][cols];
+
+        // Input elements into the array
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+
+        // Print the array
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        sc.close();
+    }
+}
+
+
+--------------------------------------------------------------------------------------------------------------------------------------
+Question 3
+Marks: 0/1
+
+Reverse each word in a string
+Write a function to reverse each word in a string.
+
+Description :- A method has to be created that takes a string as input and extracts each word from that string and then reverse each word individually and gives the output as a reversed string. 
+
+Example :-
+
+Input:- great learning
+
+output :- taerg gninrael
+
+input :- hello guys how are you
+
+output :- olleh syug woh era uoy
+
+
+
+Explanations :- As the input string is great learning, each word has to be extracted i.e. great and learning then individually each word has to be reversed so it will be taerg and gninrael. after combining these two words into as single string the final output will be taerg gninrael.
+
+Your answer
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        //write your answer here
+        import java.util.*;
+        Scanner sc = new Scanner(System.in);
+        
+        // Take input string from user
+        String input = sc.nextLine();
+        
+        // Split the input into words
+        String[] words = input.split(" ");
+        
+        StringBuilder result = new StringBuilder();
+        
+        // Reverse each word individually
+        for (String word : words) {
+            StringBuilder reversedWord = new StringBuilder(word);
+            result.append(reversedWord.reverse()).append(" ");
+        }
+        
+        // Print the final result after trimming the last space
+        System.out.println(result.toString().trim());
+        
+        sc.close();
+    }
+}
+
+------------------------------------------------------------------------------------------------------
+
+Attempt #1
+Oct 25, 4:34 PM
+Marks: 0
+Question 1
+Marks: 0/1
+
+sum of the elements present inside the array
+1. Write a program to find the sum of the elements present inside the array.
+
+Sample Input:
+
+5
+
+1 2 3 4 5
+
+Output: the sum of the elements in the array = 15
+
+Sample Input2:
+
+3
+
+19 45 34
+
+Output: the sum of the elements in the array = 98
+
+Your answer
+
+import java.util.*;
+
+public class SumOfArrayElements {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Read the size of the array
+        int n = sc.nextInt();
+        sc.nextLine(); // consume the newline
+        
+        String input = sc.nextLine().trim();
+        int sum = 0;
+
+        // Case 1: If input has spaces (like "19 45 34")
+        if (input.contains(" ")) {
+            String[] parts = input.split(" ");
+            for (String part : parts) {
+                sum += Integer.parseInt(part);
+            }
+        } 
+        // Case 2: If input is a single number (like "12345")
+        else {
+            for (char ch : input.toCharArray()) {
+                sum += Character.getNumericValue(ch);
+            }
+        }
+
+        System.out.println("the sum of the elements in the array = " + sum);
+        sc.close();
+    }
+}
+Comment:
+
+Out of the 3 test cases, 3 failed because they did not generate the expected output.
+
+Question 2
+Marks: 0/1
+
+Multidimensional Arrays in Java
+Instructions:
+
+Write a program that takes the row & columns input from the user to populate a 2D array and then prints the array.
+
+Sample Input & Output:
+
+Sample Input:
+2
+3
+1 2 3
+4 5 6
+
+Sample Output:
+1 2 3
+4 5 6
+Hints:
+1. Use the Scanner class to read input from the user.
+2. Create a nested for loop to iterate over the rows and columns of the array.
+3. Use the nextInt() method of the Scanner class to read integer values from the user.
+4. Store the input values in the array using the appropriate indices.
+5. Print the array using a nested for loop.
+
+Your answer
+
+import java.util.*;
+
+public class TwoDArrayExample {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Read number of rows and columns
+        int rows = sc.nextInt();
+        int cols = sc.nextInt();
+
+        // Create a 2D array
+        int[][] arr = new int[rows][cols];
+
+        // Input elements into the array
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                arr[i][j] = sc.nextInt();
+            }
+        }
+
+        // Print the array
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(arr[i][j] + " ");
+            }
+            System.out.println();
+        }
+
+        sc.close();
+    }
+}
+Comment:
+
+Out of the 2 test cases, 2 failed because they did not generate the expected output.
+
+Question 3
+Marks: 0/1
+
+Reverse each word in a string
+Write a function to reverse each word in a string.
+
+Description :- A method has to be created that takes a string as input and extracts each word from that string and then reverse each word individually and gives the output as a reversed string. 
+
+Example :-
+
+Input:- great learning
+
+output :- taerg gninrael
+
+input :- hello guys how are you
+
+output :- olleh syug woh era uoy
+
+
+
+Explanations :- As the input string is great learning, each word has to be extracted i.e. great and learning then individually each word has to be reversed so it will be taerg and gninrael. after combining these two words into as single string the final output will be taerg gninrael.
+
+Your answer
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        //write your answer here
+        import java.util.*;
+        Scanner sc = new Scanner(System.in);
+        
+        // Take input string from user
+        String input = sc.nextLine();
+        
+        // Split the input into words
+        String[] words = input.split(" ");
+        
+        StringBuilder result = new StringBuilder();
+        
+        // Reverse each word individually
+        for (String word : words) {
+            StringBuilder reversedWord = new StringBuilder(word);
+            result.append(reversedWord.reverse()).append(" ");
+        }
+        
+        // Print the final result after trimming the last space
+        System.out.println(result.toString().trim());
+        
+        sc.close();
+    }
+}
+Comment:
+
+Out of the 2 test cases, 2 failed because they did not generate the expected output.
+
+Question 4
+Marks: 0/1
+
+Equal character in string
+You are given a string s. In one move you can change any character to another character.
+
+You have to make a string which consists of the same character. Find the minimum move to do this task.
+
+Constraints:
+
+1 <= s.length <= 1000
+
+s consists only of lowercase characters .
+
+Input Format
+
+First line contains string s.
+
+Output format 
+
+Print the minimum move to this task.
+
+ Input
+
+aabbbcccc
+
+output
+
+5
+
+Explanation
+
+Since  character ‘c’ has maximum frequency in string s.
+
+So we will make all other character to ‘c’so the minimum move is 5 (convert 2 ‘a’ into ‘c’ and 3 ‘b’into ‘c’).
+
+
+
+Your answer
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        //write your answer here
+    import java.util.*;
+
+public class MinimumMovesToMakeSame {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String s = sc.nextLine();
+
+        // Frequency array for all lowercase letters
+        int[] freq = new int[26];
+
+        for (char c : s.toCharArray()) {
+            freq[c - 'a']++;
+        }
+
+        // Find the maximum frequency
+        int maxFreq = 0;
+        for (int count : freq) {
+            if (count > maxFreq) {
+                maxFreq = count;
+            }
+        }
+
+        // Minimum moves = total length - max frequency character count
+        int minMoves = s.length() - maxFreq;
+        System.out.println(minMoves);
+
+        sc.close();
+    }
+}
