@@ -1,0 +1,225 @@
+Question-1:
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Integer> list = new ArrayList<>();
+
+        while (sc.hasNextInt()) {
+            list.add(sc.nextInt());
+        }
+
+        System.out.println("List before sort: " + list);
+        Collections.sort(list);
+        System.out.println("List after sort: " + list);
+    }
+}
+---------------------------------------------------------------------------------------------------------
+Question-2:
+
+public class Test<T extends Number> {
+
+    private T[] values;
+
+    @SafeVarargs
+    public Test(T... values) {
+        this.values = values;
+    }
+
+    public double getSum() {
+        double sum = 0.0;
+        for (T v : values) {
+            sum += v.doubleValue();
+        }
+        return sum;
+    }
+}
+------------------------------------------------------------------------------------------------------------
+Question-3:
+
+public abstract class LibraryItem {
+
+    private int itemId;
+    private String title;
+    private String creator;
+    private boolean checkedOut;
+
+    public LibraryItem(int itemId, String title, String creator) {
+        this.itemId = itemId;
+        this.title = title;
+        this.creator = creator;
+        this.checkedOut = false;
+    }
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public boolean isCheckedOut() {
+        return checkedOut;
+    }
+
+    public void checkOut() {
+        if (checkedOut) {
+            throw new ItemAlreadyCheckedOutException(itemId);
+        }
+        checkedOut = true;
+    }
+
+    public void returnItem() {
+        if (!checkedOut) {
+            throw new ItemNotCheckedOutException(itemId);
+        }
+        checkedOut = false;
+    }
+
+    @Override
+    public String toString() {
+        return "Item ID: " + itemId +
+               ", Title: " + title +
+               ", Creator: " + creator +
+               ", Checked Out: " + checkedOut;
+    }
+}
+---------------------------------------------------------
+public class Book extends LibraryItem {
+
+    private int numPages;
+
+    public Book(int itemId, String title, String author, int numPages) {
+        super(itemId, title, author);
+        this.numPages = numPages;
+    }
+
+    public int getNumPages() {
+        return numPages;
+    }
+
+    @Override
+    public String toString() {
+        return "Book -> " + super.toString() + ", Pages: " + numPages;
+    }
+}
+----------------------------------------------------------------------
+public class DVD extends LibraryItem {
+
+    private int duration; // in minutes
+
+    public DVD(int itemId, String title, String director, int duration) {
+        super(itemId, title, director);
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+
+    @Override
+    public String toString() {
+        return "DVD -> " + super.toString() + ", Duration: " + duration + " mins";
+    }
+}
+-------------------------------------------------------------------------------------
+public class Magazine extends LibraryItem {
+
+    private int issueNumber;
+
+    public Magazine(int itemId, String title, String publisher, int issueNumber) {
+        super(itemId, title, publisher);
+        this.issueNumber = issueNumber;
+    }
+
+    public int getIssueNumber() {
+        return issueNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Magazine -> " + super.toString() + ", Issue: " + issueNumber;
+    }
+}
+-------------------------------------------------------------------------------
+import java.util.ArrayList;
+import java.util.List;
+
+public class Library<T extends LibraryItem> {
+
+    private List<T> items = new ArrayList<>();
+
+    public void addItem(T item) {
+        items.add(item);
+    }
+
+    public void displayItems() {
+        for (T item : items) {
+            System.out.println(item);
+        }
+    }
+
+    public boolean checkOutItem(int itemId) {
+        T item = findItem(itemId);
+        if (item == null) {
+            return false;
+        }
+        item.checkOut(); // may throw ItemAlreadyCheckedOutException
+        return true;
+    }
+
+    public boolean returnItem(int itemId) {
+        T item = findItem(itemId);
+        if (item == null) {
+            return false;
+        }
+        item.returnItem(); // may throw ItemNotCheckedOutException
+        return true;
+    }
+
+    private T findItem(int itemId) {
+        for (T item : items) {
+            if (item.getItemId() == itemId) {
+                return item;
+            }
+        }
+        return null;
+    }
+}
+-------------------------------------------------------------------------------------------------------------------
+Question-4:
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String v1 = sc.nextLine();
+        String v2 = sc.nextLine();
+        String v3 = sc.nextLine();
+        String v4 = sc.nextLine();
+        int keyToRemove = sc.nextInt();
+
+        Map<Integer, String> map = new LinkedHashMap<>();
+        map.put(1, v1);
+        map.put(2, v2);
+        map.put(3, v3);
+        map.put(4, v4);
+
+        System.out.println("Mappings of HashMap are : " + map);
+
+        map.remove(keyToRemove);
+
+        System.out.println("Mappings after removal are : " + map);
+    }
+}
