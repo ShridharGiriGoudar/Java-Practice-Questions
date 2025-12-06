@@ -1,0 +1,240 @@
+JDBC Connection:
+----------------
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class JDBC_Connection1 {
+	public static void main(String[] args) throws ClassNotFoundException, SQLException {		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		System.out.println("Driver Loaded");
+		
+		Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/college", "root", "root");
+		if(connection != null) {
+			System.out.println("Hi");
+		}
+		else {
+			System.out.println("nothing");
+		}
+	}
+}
+------------------------------------------------------------------------------------------------------------------------------------------
+
+JDBC Program's:
+---------------
+
+package com.dest.jdbcprogramming.mains;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class Displaying {
+	private static PreparedStatement pstmt;
+    private static ResultSet res;
+    private Connection con;
+    private int column;
+
+    public Displaying(Connection con, int column) {
+        this.con = con;
+        this.column = column;
+
+        try {
+            //for questions
+            String query1 = "select * from questions where q_id = ?";
+            pstmt = con.prepareStatement(query1);
+            pstmt.setInt(1, column);
+            res = pstmt.executeQuery();
+            while(res.next() == true) {
+                System.out.println(res.getString("questions"));
+            }
+            //for options
+            String query2 = "select * from options where op_id = ?";
+            pstmt = con.prepareStatement(query2);
+            pstmt.setInt(1, column);
+            res = pstmt.executeQuery();
+            while(res.next() == true) {
+                System.out.print(res.getString(2) + "   ");
+                System.out.print(res.getString(3) + "   ");
+                System.out.print(res.getString(4) + "   ");
+                System.out.print(res.getString(5) + "   ");
+                System.out.println(res.getString(6) + "   ");
+            }
+        }
+        catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void result(int credits) {
+        System.out.println("\n----------------------------------------------------------");
+        System.out.println("Wrong answer, you have earned " + credits + " credits");
+        System.out.println("You are out of the game.");
+        System.out.println("----------------------------------------------------------");
+        System.exit(0);
+    }
+
+}
+--------------------------------------------------------------------------------------------------------------------package com.dest.jdbcprogramming.mains;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.util.Scanner;
+
+import com.dest.jdbcprogramming.mains1.JDBCTableOperations;
+
+public class JDBCOperation1 {
+	public static void main(String args[]) throws Exception {
+		Scanner sc = new Scanner(System.in);
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		System.out.println("Driver loaded");
+		String url = "jdbc:mysql://localhost:3306/practis-e";
+		String user = "root";
+		String pwd = "root";
+		Connection con = DriverManager.getConnection(url,user,pwd);
+		System.out.println("Connection Established");
+
+		System.out.println("------------------------");
+		System.out.println("Select the operations: ");
+		System.out.println("1. JDBC Table Operations\n"
+						  +"6. Exit");
+		int selection_1 = sc.nextInt();
+
+		switch (selection_1) {
+		case 1:{
+			JDBCTableOperations jto = new JDBCTableOperations(con);
+			System.out.println("Select operation: ");
+			System.out.println("1. Create Table\n"
+						     + "2. Drop Table\n"
+						     + "3. Exit");
+			int selection_2 = sc.nextInt();
+			switch(selection_2) {
+				case 1: {
+					jto.createTable();
+					main(null);
+				}
+				case 2: {
+					jto.dropTable();
+					main(null);
+				}
+				case 3: {
+					main(null);
+				}
+			}	
+		}
+		case 2:{
+			System.exit(0);
+		}
+	}
+}}
+---------------------------------------------------------------------------------------------------------------------------------
+package com.dest.jdbcprogramming.mains;
+
+import java.sql.Connection;
+import java.sql.Statement;
+import java.util.Scanner;
+
+public class JDBCOperations {
+	private Connection con;
+	Scanner sc = new Scanner(System.in);
+
+	public JDBCOperations(Connection con) {
+		this.con = con;
+	}
+
+	public void createDatabase() {
+		try {
+
+			System.out.println("Enter the name of the " + "Database: ");
+			String db_name = sc.next();;
+			String query = "Create database " +db_name;
+			Statement statement = con.createStatement();
+			int x = -1;
+			x = statement.executeUpdate(query);
+			if(x>=0) {
+				System.out.println("Query Executed");
+			}
+			else {
+				System.out.println("Not Querry Executed");
+			}
+		}
+		catch (Exception e){
+			e.printStackTrace();
+		}
+	}	
+
+	public void dropDatabase() {
+		try {
+			System.out.println("Enter the name of the  Database to be dropped:");
+			String db_name = sc.next();;
+			String query = "drop database " +db_name;
+			Statement statement = con.createStatement();
+			int x = -1;
+			x = statement.executeUpdate(query);
+			if(x>=0) {
+				System.out.println("Query Executed");
+			}
+			else {
+				System.out.println("Querry Execution failed");
+			}	
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+}
+-------------------------------------------------------------------------------------------------------------------------------
+package com.dest.jdbcprogramming.mains;
+import java.sql.Connection;
+import java.util.Scanner;
+
+import com.dest.jdbcprogramming.mains1.JDBCCrudOperations2;
+
+public class JDBCOperations3 {
+	
+	public static Connection con;
+	public static void main(String[] args)  throws Exception{
+		Scanner sc = new Scanner(System.in);
+		JDBCCrudOperations2 jco = new JDBCCrudOperations2(con);
+		
+		System.out.println("Welcome to Employee Database Operations\n"
+				+ "Please select an operation\n"
+				+ "1. DataBase Connection\n"
+				+ "2. Data Insertion\n"
+				+ "3. View All Employee data\n"
+				+ "4. View By Id\n"
+				+ "5. View By Company Name\n"
+				+ "6. Exit");
+		int choice=sc.nextInt();
+		switch(choice) {
+		case 1:{
+			con=jco.connectDb();
+			main(null);
+		}
+		case 2:{
+			jco.insertDataToEmployee(con);
+			main(null);
+		}
+		case 3:{
+			jco.selectAllData(con);
+			main(null);
+		}
+		case 4:{
+			jco.viewByID(con);
+			main(null);
+		}
+		
+		case 5:{
+			jco.viewByCompany(con);;
+			main(null);
+		}
+		
+		case 0:System.exit(choice);
+			default:System.out.println("Invalid input");
+			main(null);
+		}
+		
+	}
+
+}
